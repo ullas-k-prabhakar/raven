@@ -40,10 +40,11 @@ public class ImageInputCompletionServiceImpl implements ImageInputCompletionServ
 						base64 = RavenUtil.encodeImageToBase64(new File(img));
 						String dataUri = "data:" + RavenUtil.getMimeTypeByExtension(img) + ";base64,'" + base64 + "'";
 						c.setImageUrl(new ImageUrl(dataUri));
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+                                        } catch (IOException e) {
+                                                throw new RavenException(
+                                                                "Failed to encode image to Base64 for path: " + img,
+                                                                e);
+                                        }
 				}
 				// else if you want to normalize an already‐Base64 string:
 				else if (RavenUtil.isValidBase64(img)) {
